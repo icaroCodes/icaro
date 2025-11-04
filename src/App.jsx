@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Dock, DockIcon } from "@/components/ui/dock";
-import { House, Notebook, FolderKanban, MessageSquare, Lightbulb, User, Mail } from "lucide-react";
+import { House, FolderKanban, Star, Rocket, MessageCircleCode, Github, BriefcaseBusiness } from "lucide-react";
 import HeroSection from "@/sections/HeroSection";
 
 export default function App() {
@@ -8,17 +8,38 @@ export default function App() {
 
   const dockItems = [
     { id: "home", icon: House, label: "Início" },
-    { id: "about", icon: Notebook, label: "Sobre" },
+    { id: "services", icon: BriefcaseBusiness, label: "Serviços" }, 
     { id: "projects", icon: FolderKanban, label: "Projetos" },
-    { id: "feedbacks", icon: MessageSquare, label: "Feedbacks" },
-    { id: "skills", icon: Lightbulb, label: "Habilidades" },
-    { id: "profile", icon: User, label: "Perfil" },
-    { id: "contact", icon: Mail, label: "Contato" },
+    { id: "feedbacks", icon: Star, label: "Feedbacks" },
+    { id: "skills", icon: Rocket, label: "Habilidades" },
+    { id: "contact", icon: MessageCircleCode, label: "Contato" },
+    { id: "github", icon: Github, label: "Github" },
   ];
 
+  const renderSection = () => {
+    switch (activeSection) {
+      case "home":
+        return <HeroSection />;
+      case "services":
+        return ;
+      case "projects":
+        return ;
+      case "feedbacks":
+        return ;
+      case "skills":
+        return ;
+      case "contact":
+        return ;
+      case "github":
+        return ;
+      default:
+        return <HeroSection />;
+    }
+  };
+
   return (
-    <div className="relative min-h-screen bg-[#b7d5e5]">
-      <HeroSection />
+    <div className="relative min-h-screen ">
+      {renderSection()}
       
       <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
         <Dock 
@@ -39,7 +60,7 @@ export default function App() {
               >
                 <Icon className="w-6 h-6 text-slate-900" />
                 
-                <div className="absolute -top-14 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-[100]">
+                <div className="absolute -top-14 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-100">
                   <div className="bg-slate-900 text-white px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap shadow-lg">
                     {item.label}
                     <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 rotate-45"></div>
