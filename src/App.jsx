@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { House, FolderKanban, Star, Rocket, MessageCircleCode, Github, BriefcaseBusiness } from "lucide-react";
 import HeroSection from "@/sections/HeroSection";
+import Header from "@/components/Header";
 
 export default function App() {
   const [activeSection, setActiveSection] = useState("home");
@@ -38,7 +39,8 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen ">
+    <div className="relative min-h-screen">
+      <Header />
       {renderSection()}
       
       <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">

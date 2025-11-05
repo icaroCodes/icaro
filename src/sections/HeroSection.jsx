@@ -1,15 +1,15 @@
 export default function HeroSection() {
   return (
-    <section className="min-h-screen flex items-center justify-center px-6">
+    <section className="h-screen flex items-center justify-center px-6 pt-20">
       <div className="max-w-5xl mx-auto text-center">
         <h1 className="text-7xl md:text-8xl font-black mb-6 text-slate-900">
           Ícaro <span className="text-slate-700">Codes</span>
         </h1>
         <p className="text-2xl md:text-3xl text-slate-700 mb-8 font-light">
-          Desenvolvedor Full Stack & Designer
+          Desenvolvedor Full Stack
         </p>
         <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-12">
-          Transformo ideias em experiências digitais extraordinárias
+          Converto visitas em clientes
         </p>
         
         <div className="flex gap-4 justify-center flex-wrap">
