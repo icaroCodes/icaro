@@ -18,21 +18,9 @@ export default function HeroSection() {
               const element = document.getElementById("projects");
               if (element) {
                 const headerOffset = 80;
-                const bounceOffset = 100;
                 const elementPosition = element.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                
-                window.scrollTo({ 
-                  top: offsetPosition + bounceOffset, 
-                  behavior: "smooth" 
-                });
-                
-                setTimeout(() => {
-                  window.scrollTo({ 
-                    top: offsetPosition, 
-                    behavior: "smooth" 
-                  });
-                }, 400);
+                window.scrollTo({ top: offsetPosition, behavior: "smooth" });
               }
             }}
             className="px-8 py-4 bg-slate-900 text-white rounded-full font-semibold hover:bg-slate-800 transition-all duration-300 shadow-lg"
@@ -44,21 +32,9 @@ export default function HeroSection() {
               const element = document.getElementById("contact");
               if (element) {
                 const headerOffset = 80;
-                const bounceOffset = 100;
                 const elementPosition = element.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                
-                window.scrollTo({ 
-                  top: offsetPosition + bounceOffset, 
-                  behavior: "smooth" 
-                });
-                
-                setTimeout(() => {
-                  window.scrollTo({ 
-                    top: offsetPosition, 
-                    behavior: "smooth" 
-                  });
-                }, 400);
+                window.scrollTo({ top: offsetPosition, behavior: "smooth" });
               }
             }}
             className="px-8 py-4 bg-white/50 backdrop-blur-sm border border-slate-900/20 rounded-full font-semibold hover:bg-white/70 transition-all duration-300"

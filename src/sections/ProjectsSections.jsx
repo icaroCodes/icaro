@@ -36,7 +36,7 @@ export default function ProjectsSections() {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="bg-gradient-to-br from-slate-50 to-white border border-slate-200 rounded-2xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+              className="border-slate-200 rounded-2xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
             >
               <h3 className="text-2xl font-bold mb-3 text-slate-900">
                 {project.title}

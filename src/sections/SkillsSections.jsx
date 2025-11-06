@@ -34,7 +34,7 @@ export default function SkillsSections() {
           {skillCategories.map((category, index) => (
             <div
               key={index}
-              className="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+              className="text-white rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
             >
               <h3 className="text-3xl font-bold mb-6">{category.category}</h3>
               <div className="flex flex-wrap gap-3">

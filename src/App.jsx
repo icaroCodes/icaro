@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { House, FolderKanban, Star, Rocket, MessageCircleCode, Github, BriefcaseBusiness } from "lucide-react";
 import HeroSection from "@/sections/HeroSection";
@@ -11,7 +12,50 @@ import Header from "@/components/Header";
 
 export default function App() {
   const [activeSection, setActiveSection] = useState("home");
-  const [isScrolling, setIsScrolling] = useState(false);
+  const [dockPosition, setDockPosition] = useState("bottom");
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [windowHeight, setWindowHeight] = useState(0);
+
+  useEffect(() => {
+    const updateWindowHeight = () => {
+      setWindowHeight(window.innerHeight);
+    };
+    
+    updateWindowHeight();
+    window.addEventListener("resize", updateWindowHeight);
+    return () => window.removeEventListener("resize", updateWindowHeight);
+  }, []);
+
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          const scrollDifference = currentScrollY - lastScrollY;
+          
+          const heroSection = document.getElementById("home");
+          const heroSectionHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
+          
+          if (scrollDifference > 0 && currentScrollY > 20) {
+            setDockPosition("header");
+          } 
+          else if (scrollDifference < 0 && currentScrollY <= heroSectionHeight - 50) {
+            setDockPosition("bottom");
+          }
+          
+          setLastScrollY(currentScrollY);
+          ticking = false;
+        });
+        
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   const dockItems = [
     { id: "home", icon: House, label: "Início" },
@@ -32,7 +76,6 @@ export default function App() {
       const element = document.getElementById(item.id);
       if (element) {
         setActiveSection(item.id);
-        setIsScrolling(true);
         
         const headerOffset = 80;
         const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
@@ -42,10 +85,6 @@ export default function App() {
           top: targetPosition,
           behavior: "smooth"
         });
-
-        setTimeout(() => {
-          setIsScrolling(false);
-        }, 800);
       }
     }
   };
@@ -60,7 +99,24 @@ export default function App() {
       <SkillsSections />
       <ContactSections />
       
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
+      <motion.div
+        className="fixed left-1/2 -translate-x-1/2 z-50"
+        initial={{ y: 0 }}
+        animate={{
+          y: dockPosition === "bottom" 
+            ? 0 
+            : windowHeight > 0 ? -(windowHeight - 100) : 0
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 120,
+          damping: 25,
+          mass: 0.8
+        }}
+        style={{
+          bottom: 16
+        }}
+      >
         <Dock 
           direction="middle"
           className="bg-white/30 backdrop-blur-xl border border-white/40 shadow-2xl"
@@ -89,7 +145,7 @@ export default function App() {
             );
           })}
         </Dock>
-      </div>
+      </motion.div>
     </div>
   );
 }
