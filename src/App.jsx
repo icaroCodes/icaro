@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { House, FolderKanban, Star, Rocket, MessageCircleCode, Github, BriefcaseBusiness } from "lucide-react";
 import HeroSection from "@/sections/HeroSection";
+import ServicesSections from "@/sections/ServicesSections";
+import ProjectsSections from "@/sections/ProjectsSections";
+import FeedbacksSections from "@/sections/FeedbacksSections";
+import SkillsSections from "@/sections/SkillsSections";
+import ContactSections from "@/sections/ContactSections";
 import Header from "@/components/Header";
 
 export default function App() {
   const [activeSection, setActiveSection] = useState("home");
+  const [isScrolling, setIsScrolling] = useState(false);
 
   const dockItems = [
     { id: "home", icon: House, label: "Início" },
@@ -14,34 +20,45 @@ export default function App() {
     { id: "feedbacks", icon: Star, label: "Feedbacks" },
     { id: "skills", icon: Rocket, label: "Habilidades" },
     { id: "contact", icon: MessageCircleCode, label: "Contato" },
-    { id: "github", icon: Github, label: "Github" },
+    { id: "github", icon: Github, label: "Github", isExternal: true, url: "https://github.com/icaroCodes" },
   ];
 
-  const renderSection = () => {
-    switch (activeSection) {
-      case "home":
-        return <HeroSection />;
-      case "services":
-        return ;
-      case "projects":
-        return ;
-      case "feedbacks":
-        return ;
-      case "skills":
-        return ;
-      case "contact":
-        return ;
-      case "github":
-        return ;
-      default:
-        return <HeroSection />;
+  
+
+  const handleDockClick = (item) => {
+    if (item.isExternal && item.url) {
+      window.open(item.url, '_blank', 'noopener,noreferrer');
+    } else {
+      const element = document.getElementById(item.id);
+      if (element) {
+        setActiveSection(item.id);
+        setIsScrolling(true);
+        
+        const headerOffset = 80;
+        const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
+        const targetPosition = elementTop - headerOffset;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth"
+        });
+
+        setTimeout(() => {
+          setIsScrolling(false);
+        }, 800);
+      }
     }
   };
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative">
       <Header />
-      {renderSection()}
+      <HeroSection />
+      <ServicesSections />
+      <ProjectsSections />
+      <FeedbacksSections />
+      <SkillsSections />
+      <ContactSections />
       
       <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
         <Dock 
@@ -50,12 +67,12 @@ export default function App() {
         >
           {dockItems.map((item) => {
             const Icon = item.icon;
-            const isActive = activeSection === item.id;
+            const isActive = activeSection === item.id && !item.isExternal;
             
             return (
               <DockIcon
                 key={item.id}
-                onClick={() => setActiveSection(item.id)}
+                onClick={() => handleDockClick(item)}
                 className={`relative group transition-colors duration-300 ${
                   isActive ? "bg-[#f2f4f8]" : "hover:bg-white/20"
                 }`}
