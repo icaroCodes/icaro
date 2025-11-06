@@ -15,18 +15,26 @@ export default function App() {
   const [dockPosition, setDockPosition] = useState("bottom");
   const [lastScrollY, setLastScrollY] = useState(0);
   const [windowHeight, setWindowHeight] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const updateWindowHeight = () => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
       setWindowHeight(window.innerHeight);
     };
     
-    updateWindowHeight();
-    window.addEventListener("resize", updateWindowHeight);
-    return () => window.removeEventListener("resize", updateWindowHeight);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
+    // Em mobile, não aplica animação de scroll na dock
+    if (isMobile) {
+      setDockPosition("bottom");
+      return;
+    }
+
     let ticking = false;
 
     const handleScroll = () => {
@@ -55,7 +63,7 @@ export default function App() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, [lastScrollY, isMobile]);
 
   const dockItems = [
     { id: "home", icon: House, label: "Início" },
@@ -103,16 +111,24 @@ export default function App() {
         className="fixed left-1/2 -translate-x-1/2 z-50"
         initial={{ y: 0 }}
         animate={{
-          y: dockPosition === "bottom" 
+          y: isMobile || dockPosition === "bottom" 
             ? 0 
             : windowHeight > 0 ? -(windowHeight - 100) : 0
         }}
-        transition={{
-          type: "spring",
-          stiffness: 120,
-          damping: 25,
-          mass: 0.8
-        }}
+        transition={
+          isMobile 
+            ? {
+                type: "tween",
+                duration: 0.2,
+                ease: "easeOut"
+              }
+            : {
+                type: "spring",
+                stiffness: 120,
+                damping: 25,
+                mass: 0.8
+              }
+        }
         style={{
           bottom: 16
         }}
