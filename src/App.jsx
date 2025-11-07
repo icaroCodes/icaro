@@ -29,7 +29,6 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    // Em mobile, não aplica animação de scroll na dock
     if (isMobile) {
       setDockPosition("bottom");
       return;
