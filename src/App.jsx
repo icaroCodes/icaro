@@ -9,6 +9,8 @@ import FeedbacksSections from "@/sections/FeedbacksSections";
 import SkillsSections from "@/sections/SkillsSections";
 import ContactSections from "@/sections/ContactSections";
 import Header from "@/components/Header";
+import { SmoothCursor } from "@/components/ui/smooth-cursor"
+
 
 export default function App() {
   const [activeSection, setActiveSection] = useState("home");
@@ -98,6 +100,7 @@ export default function App() {
 
   return (
     <div className="relative">
+      <SmoothCursor />
       <Header />
       <HeroSection />
       <ServicesSections />
