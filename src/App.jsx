@@ -8,7 +8,7 @@ import ProjectsSections from "@/sections/ProjectsSections";
 import FeedbacksSections from "@/sections/FeedbacksSections";
 import SkillsSections from "@/sections/SkillsSections";
 import ContactSections from "@/sections/ContactSections";
-import Header from "@/components/Header";
+import Header from "@/components/layout/Header";
 import { SmoothCursor } from "@/components/ui/smooth-cursor"
 
 
