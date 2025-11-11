@@ -32,6 +32,7 @@ export default function HeroSection() {
               const element = document.getElementById("contact");
               if (element) {
                 const headerOffset = 80;
+                const bounceOffset = 100;
                 const elementPosition = element.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
                 window.scrollTo({ top: offsetPosition, behavior: "smooth" });

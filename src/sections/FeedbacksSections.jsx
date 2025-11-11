@@ -21,7 +21,7 @@ export default function FeedbacksSections() {
   ];
 
   return (
-    <section id="feedbacks" className="min-h-screen flex items-center justify-center px-6 py-20d">
+    <section id="feedbacks" className="min-h-screen flex items-center justify-center px-6 py-20">
       <div className="max-w-6xl mx-auto w-full">
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-black mb-4 text-slate-900">
