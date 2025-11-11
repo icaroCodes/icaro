@@ -153,10 +153,16 @@ export default function App() {
               >
                 <Icon className="w-6 h-6 text-slate-900" />
                 
-                <div className="absolute -top-14 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-100">
+                <div className={`absolute left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-100 ${
+                  dockPosition === "header" ? "-bottom-14" : "-top-14"
+                }`}>
                   <div className="bg-slate-900 text-white px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap shadow-lg">
                     {item.label}
-                    <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 rotate-45"></div>
+                    <div className={`absolute left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 ${
+                      dockPosition === "header" 
+                        ? "-top-1 rotate-45" 
+                        : "-bottom-1 rotate-45"
+                    }`}></div>
                   </div>
                 </div>
               </DockIcon>
